@@ -11,6 +11,7 @@ public class SizeChartConverter {
                 dto.getEu(),
                 dto.getUs(),
                 dto.getUk(),
+                dto.getType(),
                 dto.getBrand());
     }
 
@@ -19,6 +20,7 @@ public class SizeChartConverter {
                 entity.getEu(),
                 entity.getUs(),
                 entity.getUk(),
+                entity.getType(),
                 entity.getBrand());
     }
 }

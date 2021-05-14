@@ -1,6 +1,7 @@
 package com.droppynapi.dto;
 
 
+import com.droppynapi.model.Media;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,5 +12,5 @@ import lombok.NoArgsConstructor;
 public class BrandDTO {
     private String id;
     private String name;
-    private String image;
+    private Media media;
 }

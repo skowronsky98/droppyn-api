@@ -7,12 +7,12 @@ public class BrandConverter {
     public static Brand toEntity(BrandDTO dto) {
         return new Brand(dto.getId(),
                 dto.getName(),
-                dto.getImage());
+                dto.getMedia());
     }
 
     public static BrandDTO toDTO(Brand entity){
         return new BrandDTO(entity.get_id(),
                 entity.getName(),
-                entity.getImage());
+                entity.getMedia());
     }
 }

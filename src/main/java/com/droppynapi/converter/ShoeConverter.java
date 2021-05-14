@@ -10,7 +10,7 @@ public class ShoeConverter {
         return new Shoe(dto.getId(),
                 dto.getModel(),
                 dto.getBrand(),
-                dto.getImage(),
+                dto.getMedia(),
                 dto.getFavorite());
     }
 
@@ -18,7 +18,7 @@ public class ShoeConverter {
         return new ShoeDTO(entity.get_id(),
                 entity.getModel(),
                 entity.getBrand(),
-                entity.getImage(),
+                entity.getMedia(),
                 entity.getFavorite());
     }
 }

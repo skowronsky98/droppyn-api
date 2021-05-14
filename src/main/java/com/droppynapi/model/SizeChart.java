@@ -17,6 +17,7 @@ public class SizeChart {
     private String eu;
     private Double us;
     private Double uk;
+    private String type;
     @DBRef
     private Brand brand;
 

@@ -13,5 +13,6 @@ public class SizeChartDTO {
     private String eu;
     private Double us;
     private Double uk;
+    private String type;
     private Brand brand;
 }

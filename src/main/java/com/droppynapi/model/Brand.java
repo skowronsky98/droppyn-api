@@ -14,5 +14,5 @@ public class Brand {
     @Id
     private String _id;
     private String name;
-    private String image;
+    private Media media;
 }
