@@ -14,9 +14,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class SizeChart {
     @Id
     private String _id;
-    private String eu;
     private Double us;
     private Double uk;
+    private String eu;
     private String type;
     @DBRef
     private Brand brand;
