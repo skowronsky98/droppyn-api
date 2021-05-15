@@ -17,7 +17,7 @@ public class OfferDTO {
     private Boolean deleted;
 
     private String bio;
-    private Shoe shoe;
-    private SizeChart sizeChart;
+    private ShoeDTO shoe;
+    private SizeChartDTO size;
     private UserDTO user;
 }

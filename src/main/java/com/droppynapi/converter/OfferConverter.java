@@ -23,8 +23,8 @@ public class OfferConverter {
                 entity.getActive(),
                 entity.getDeleted(),
                 entity.getBio(),
-                entity.getShoe(),
-                entity.getSizeChart(),
+                ShoeConverter.toDTO(entity.getShoe()),
+                SizeChartConverter.toDTO(entity.getSizeChart()),
                 UserConverter.toDTO(entity.getUser()));
     }
 }
