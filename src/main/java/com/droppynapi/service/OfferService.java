@@ -30,11 +30,6 @@ public class OfferService {
     }
 
     public Offer addOffer(Offer offer,String shoeId, String userId, String sizeId){
-        // add reference to user (owner)
-        User user = userService.getUserById(userId);
-        user.addOffer(offer);
-        userService.createUser(user);
-
         //add references to offer
         Shoe shoe = shoeService.getShoeById(shoeId);
         offer.setShoe(shoe);
@@ -42,7 +37,17 @@ public class OfferService {
         SizeChart sizeChart = sizeChartService.getSizeChartById(sizeId);
         offer.setSizeChart(sizeChart);
 
-        return offerRepo.save(offer);
+        User user = userService.getUserById(userId);
+        offer.setUser(user);
+
+        offer = offerRepo.save(offer);
+
+        // add reference to user (owner)
+
+        user.addOffer(offer);
+        userService.createUser(user);
+
+        return offer;
     }
 
     public Offer addFavoriteOffer(String id, String userId){
@@ -71,20 +76,20 @@ public class OfferService {
         Offer offer = getOfferById(id);
 
         // validate user
-        if(userId.equals(offer.getUser().getId())){
+//        if(userId.equals(offer.getUser().getId())){
             //remove reference in user document
             User user = userService.getUserById(userId);
             user.removeMyOffer(id);
             userService.createUser(user);
 
             //set offer to unactice document
-            offer.setActive(false);
+            offer.setDeleted(true);
             offerRepo.save(offer);
-        }
+//        }
     }
 
     public void removeFavoriteOfferById(String id, String userId){
-        Offer offer = getOfferById(id);
+//        Offer offer = getOfferById(id);
         User user = userService.getUserById(userId);
         user.removeFavoriteOffer(id);
         userService.createUser(user);
@@ -92,12 +97,13 @@ public class OfferService {
 
     public Offer updateMyOffer(Offer offer,String shoeId, String userId, String sizeId){
         // validate user
-        if(userId.equals(offer.getUser().getId())){
+//        if(userId.equals(offer.getUser().getId())){
             //remove reference in user document
             User user = userService.getUserById(userId);
             // remove old offer | old and bew have same id
             user.removeMyOffer(offer.get_id());
 
+            offer.setUser(user);
             //add references to offer
             Shoe shoe = shoeService.getShoeById(shoeId);
             offer.setShoe(shoe);
@@ -105,12 +111,13 @@ public class OfferService {
             SizeChart sizeChart = sizeChartService.getSizeChartById(sizeId);
             offer.setSizeChart(sizeChart);
 
+            offer = offerRepo.save(offer);
             // add new offer
             user.addOffer(offer);
             userService.createUser(user);
-
-            return offerRepo.save(offer);
-        }
+//
+//            return offer;
+//        }
 
         // TODO return error cuz offer wasn't updated
         return offer;

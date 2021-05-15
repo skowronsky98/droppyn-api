@@ -19,7 +19,8 @@ public class Offer {
     private Double price;
     @Field
     private Boolean active = true;
-    private Boolean deleted;
+    @Field
+    private Boolean deleted = false;
     private String bio;
 
     @DBRef

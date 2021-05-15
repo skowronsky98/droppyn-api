@@ -6,16 +6,16 @@ import com.droppynapi.model.Offer;
 import com.droppynapi.model.User;
 
 public class OfferConverter {
-    public static Offer toEntity(OfferDTO dto) {
-        return new Offer(dto.getId(),
-                dto.getPrice(),
-                dto.getActive(),
-                dto.getDeleted(),
-                dto.getBio(),
-                dto.getShoe(),
-                dto.getSizeChart(),
-                dto.getUser());
-    }
+//    public static Offer toEntity(OfferDTO dto) {
+//        return new Offer(dto.getId(),
+//                dto.getPrice(),
+//                dto.getActive(),
+//                dto.getDeleted(),
+//                dto.getBio(),
+//                dto.getShoe(),
+//                dto.getSizeChart(),
+//                dto.getUserDTO());
+//    }
 
     public static OfferDTO toDTO(Offer entity){
         return new OfferDTO(entity.get_id(),
@@ -25,6 +25,6 @@ public class OfferConverter {
                 entity.getBio(),
                 entity.getShoe(),
                 entity.getSizeChart(),
-                entity.getUser());
+                UserConverter.toDTO(entity.getUser()));
     }
 }

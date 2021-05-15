@@ -19,5 +19,5 @@ public class OfferDTO {
     private String bio;
     private Shoe shoe;
     private SizeChart sizeChart;
-    private User user;
+    private UserDTO user;
 }
