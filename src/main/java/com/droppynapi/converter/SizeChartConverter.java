@@ -6,14 +6,14 @@ import com.droppynapi.model.Offer;
 import com.droppynapi.model.SizeChart;
 
 public class SizeChartConverter {
-    public static SizeChart toEntity(SizeChartDTO dto) {
-        return new SizeChart(dto.getId(),
-                dto.getUs(),
-                dto.getUk(),
-                dto.getEu(),
-                dto.getType(),
-                dto.getBrand());
-    }
+//    public static SizeChart toEntity(SizeChartDTO dto) {
+//        return new SizeChart(dto.getId(),
+//                dto.getUs(),
+//                dto.getUk(),
+//                dto.getEu(),
+//                dto.getType(),
+//                dto.getBrand());
+//    }
 
     public static SizeChartDTO toDTO(SizeChart entity){
         return new SizeChartDTO(entity.get_id(),
@@ -21,6 +21,6 @@ public class SizeChartConverter {
                 entity.getUk(),
                 entity.getEu(),
                 entity.getType(),
-                entity.getBrand());
+                entity.getBrand().get_id());
     }
 }
