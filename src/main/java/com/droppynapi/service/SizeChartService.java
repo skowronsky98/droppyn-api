@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import javax.swing.*;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SizeChartService {
@@ -22,6 +24,11 @@ public class SizeChartService {
         Brand brand = brandService.getBrandById(brandId);
         sizeChart.setBrand(brand);
         return sizeChartRepo.save(sizeChart);
+    }
+
+    public List<SizeChart> getSizeChartByBrandId(String brandId){
+        return sizeChartRepo.findAll().stream().filter(size -> size.getBrand()!=null && size.getBrand().get_id().equals(brandId))
+                .collect(Collectors.toList());
     }
 
     public SizeChart getSizeChartById(String id){

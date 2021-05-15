@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +17,9 @@ public class Offer {
     @Id
     private String _id;
     private Double price;
-    private Boolean active;
+    @Field
+    private Boolean active = true;
+    private Boolean deleted;
     private String bio;
 
     @DBRef

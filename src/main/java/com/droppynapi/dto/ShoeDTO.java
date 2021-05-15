@@ -14,5 +14,4 @@ public class ShoeDTO {
     private String model;
     private Brand brand;
     private Media media;
-    private Boolean favorite;
 }

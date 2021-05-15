@@ -10,15 +10,13 @@ public class ShoeConverter {
         return new Shoe(dto.getId(),
                 dto.getModel(),
                 dto.getBrand(),
-                dto.getMedia(),
-                dto.getFavorite());
+                dto.getMedia());
     }
 
     public static ShoeDTO toDTO(Shoe entity){
         return new ShoeDTO(entity.get_id(),
                 entity.getModel(),
                 entity.getBrand(),
-                entity.getMedia(),
-                entity.getFavorite());
+                entity.getMedia());
     }
 }

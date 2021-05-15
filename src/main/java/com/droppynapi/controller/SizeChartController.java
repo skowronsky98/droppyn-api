@@ -19,7 +19,7 @@ public class SizeChartController {
     @Autowired
     private SizeChartService sizeChartService;
 
-    @GetMapping
+    @GetMapping("/all")
     public Collection<SizeChartDTO> getAllSizeChart(){
         return sizeChartService.getAllSizeChart()
                 .stream()
@@ -27,9 +27,20 @@ public class SizeChartController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping
+    public Collection<SizeChartDTO> getSizeChartByBrandId( @RequestParam(value = "brandId") String brandId) {
+        return sizeChartService.getSizeChartByBrandId(brandId).stream()
+                .map(SizeChartConverter::toDTO).collect(Collectors.toList());
+    }
+
+//    @GetMapping
+//    public SizeChartDTO getSizeChartByBrandId( @RequestParam(value = "brandId") String brandId) {
+//        return SizeChartConverter.toDTO(sizeChartService.getSizeChartByBrandId(brandId));
+//    }
+
     @PostMapping
     public SizeChartDTO addSizeChart(@RequestBody SizeChart size,
-                                     @RequestParam(value = "idBrand") String brandId){
+                                     @RequestParam(value = "brandId") String brandId){
         return SizeChartConverter.toDTO(sizeChartService.addSizeChart(size,brandId));
     }
 }

@@ -19,6 +19,5 @@ public class Shoe {
     @DBRef
     private Brand brand;
     private Media media;
-    private Boolean favorite;
 
 }

@@ -14,6 +14,8 @@ public class OfferDTO {
     private String id;
     private Double price;
     private Boolean active;
+    private Boolean deleted;
+
     private String bio;
     private Shoe shoe;
     private SizeChart sizeChart;
