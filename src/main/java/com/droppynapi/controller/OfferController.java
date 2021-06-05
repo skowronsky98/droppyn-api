@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -20,7 +20,7 @@ public class OfferController {
     private OfferService offerService;
 
     @GetMapping("/all")
-    public Collection<OfferDTO> getAllOffers(){
+    public List<OfferDTO> getAllOffers(){
         return offerService.getAllOffers().stream()
                 .map(OfferConverter::toDTO)
                 .collect(Collectors.toList());
@@ -31,15 +31,22 @@ public class OfferController {
         return OfferConverter.toDTO(offerService.getOfferById(id));
     }
 
+    @GetMapping("/shoe")
+    public List<OfferDTO> getShoeOffers(@RequestParam(value = "shoeId") String shoeID){
+        return offerService.getAllShoeOffers(shoeID).stream()
+                .map(OfferConverter::toDTO)
+                .collect(Collectors.toList());
+    }
+
     @GetMapping("/myoffer/all")
-    public Collection<OfferDTO> getUserOffers(@RequestParam(value = "userId") String userId){
+    public List<OfferDTO> getUserOffers(@RequestParam(value = "userId") String userId){
         return offerService.getUserOffers(userId).stream()
                 .map(OfferConverter::toDTO)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/favoriteoffer/all")
-    public Collection<OfferDTO> getUserFavoriteOffers(@RequestParam(value = "userId") String userId){
+    public List<OfferDTO> getUserFavoriteOffers(@RequestParam(value = "userId") String userId){
         return offerService.getUserFavoriteOffers(userId).stream()
                 .map(OfferConverter::toDTO)
                 .collect(Collectors.toList());

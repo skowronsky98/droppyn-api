@@ -36,7 +36,7 @@ public class SizeChartService {
                 .orElseThrow(() -> new ResourceNotFoundException("no size with id: "+id));
     }
 
-    public Collection<SizeChart> getAllSizeChart(){
+    public List<SizeChart> getAllSizeChart(){
         return sizeChartRepo.findAll();
     }
 

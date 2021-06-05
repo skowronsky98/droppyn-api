@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OfferService {
@@ -25,8 +27,17 @@ public class OfferService {
     @Autowired
     private SizeChartService sizeChartService;
 
-    public Collection<Offer> getAllOffers(){
-        return offerRepo.findAll();
+    public List<Offer> getAllOffers(){
+        return offerRepo.findAll()
+                .stream()
+                .filter(offer -> !offer.getDeleted() && offer.getActive())
+                .collect(Collectors.toList());
+    }
+
+    public List<Offer> getAllShoeOffers(String shoeId){
+        return offerRepo.findAll().stream()
+                .filter(offer -> offer.getShoe().get_id().equals(shoeId) && !offer.getDeleted() && offer.getActive())
+                .collect(Collectors.toList());
     }
 
     public Offer addOffer(Offer offer,String shoeId, String userId, String sizeId){
@@ -58,11 +69,11 @@ public class OfferService {
         return offer;
     }
 
-    public Collection<Offer> getUserOffers(String userId){
+    public List<Offer> getUserOffers(String userId){
         return userService.getUserById(userId).getMyOffers();
     }
 
-    public Collection<Offer> getUserFavoriteOffers(String userId){
+    public List<Offer> getUserFavoriteOffers(String userId){
         return userService.getUserById(userId).getFavoriteOffers();
     }
 

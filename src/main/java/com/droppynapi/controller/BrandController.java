@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -19,7 +20,7 @@ public class BrandController {
     private BrandService brandService;
 
     @GetMapping("/all")
-    public Collection<BrandDTO> getAllBrands(){
+    public List<BrandDTO> getAllBrands(){
         return brandService.getAllBrands().stream().map(BrandConverter::toDTO).collect(Collectors.toList());
     }
 

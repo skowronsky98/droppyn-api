@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -19,7 +20,7 @@ public class ShoeController {
     private ShoeService shoeService;
 
     @GetMapping("/all")
-    public Collection<ShoeDTO> getAllShoes(){
+    public List<ShoeDTO> getAllShoes(){
         return shoeService.getAllShoes()
                 .stream().map(ShoeConverter::toDTO)
                 .collect(Collectors.toList());

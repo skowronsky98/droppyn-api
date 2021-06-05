@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class BrandService {
@@ -17,7 +18,7 @@ public class BrandService {
         return brandRepo.save(brand);
     }
 
-    public Collection<Brand> getAllBrands(){
+    public List<Brand> getAllBrands(){
         return brandRepo.findAll();
     }
 

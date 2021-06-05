@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class ShoeService {
@@ -21,7 +22,7 @@ public class ShoeService {
         return shoeRepo.save(shoe);
     }
 
-    public Collection<Shoe> getAllShoes(){
+    public List<Shoe> getAllShoes(){
         return shoeRepo.findAll();
     }
 

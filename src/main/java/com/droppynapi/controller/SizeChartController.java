@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -20,7 +21,7 @@ public class SizeChartController {
     private SizeChartService sizeChartService;
 
     @GetMapping("/all")
-    public Collection<SizeChartDTO> getAllSizeChart(){
+    public List<SizeChartDTO> getAllSizeChart(){
         return sizeChartService.getAllSizeChart()
                 .stream()
                 .map(SizeChartConverter::toDTO)
@@ -28,7 +29,7 @@ public class SizeChartController {
     }
 
     @GetMapping
-    public Collection<SizeChartDTO> getSizeChartByBrandId( @RequestParam(value = "brandId") String brandId) {
+    public List<SizeChartDTO> getSizeChartByBrandId( @RequestParam(value = "brandId") String brandId) {
         return sizeChartService.getSizeChartByBrandId(brandId).stream()
                 .map(SizeChartConverter::toDTO).collect(Collectors.toList());
     }
