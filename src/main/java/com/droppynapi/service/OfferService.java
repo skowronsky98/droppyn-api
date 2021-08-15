@@ -42,6 +42,7 @@ public class OfferService {
 
     public Offer addOffer(Offer offer,String shoeId, String userId, String sizeId){
         //add references to offer
+
         Shoe shoe = shoeService.getShoeById(shoeId);
         offer.setShoe(shoe);
 
@@ -112,8 +113,12 @@ public class OfferService {
             //remove reference in user document
             User user = userService.getUserById(userId);
             // remove old offer | old and bew have same id
-            user.removeMyOffer(offer.get_id());
 
+
+            if(offer.get_id() != null)
+                user.removeMyOffer(offer.get_id());
+            else
+                System.out.println("!!!!!!ERR");
             offer.setUser(user);
             //add references to offer
             Shoe shoe = shoeService.getShoeById(shoeId);

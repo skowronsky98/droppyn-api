@@ -5,7 +5,7 @@ import com.droppynapi.model.Brand;
 
 public class BrandConverter {
     public static Brand toEntity(BrandDTO dto) {
-        return new Brand(dto.getId(),
+        return new Brand(dto.get_id(),
                 dto.getName(),
                 dto.getMedia());
     }

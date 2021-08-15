@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SizeChartDTO {
-    private String id;
+    private String _id;
     private Double us;
     private Double uk;
     private String eu;

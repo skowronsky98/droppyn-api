@@ -1,6 +1,7 @@
 package com.droppynapi.controller;
 
 import com.droppynapi.converter.OfferConverter;
+import com.droppynapi.dto.OfferAndroidDTO;
 import com.droppynapi.dto.OfferDTO;
 import com.droppynapi.model.Offer;
 import com.droppynapi.service.OfferService;
@@ -23,6 +24,13 @@ public class OfferController {
     public List<OfferDTO> getAllOffers(){
         return offerService.getAllOffers().stream()
                 .map(OfferConverter::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/all/android")
+    public List<OfferAndroidDTO> getAllAndroidOffers(){
+        return offerService.getAllOffers().stream()
+                .map(OfferConverter::toAndroidDTO)
                 .collect(Collectors.toList());
     }
 

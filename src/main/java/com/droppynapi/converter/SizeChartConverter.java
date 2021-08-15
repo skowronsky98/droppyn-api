@@ -1,8 +1,6 @@
 package com.droppynapi.converter;
 
-import com.droppynapi.dto.OfferDTO;
 import com.droppynapi.dto.SizeChartDTO;
-import com.droppynapi.model.Offer;
 import com.droppynapi.model.SizeChart;
 
 public class SizeChartConverter {

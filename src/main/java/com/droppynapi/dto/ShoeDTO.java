@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ShoeDTO {
-    private String id;
+    private String _id;
     private String model;
-    private Brand brand;
+    private BrandDTO brand;
     private Media media;
 }
