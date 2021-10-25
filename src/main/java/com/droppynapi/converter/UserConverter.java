@@ -12,6 +12,7 @@ public class UserConverter {
                 dto.getSurname(),
                 dto.getPhone(),
                 dto.getPhotoURL(),
+                dto.getBio(),
                 dto.getDefultSize());
     }
 
@@ -23,6 +24,7 @@ public class UserConverter {
                 entity.getSurname(),
                 entity.getPhone(),
                 entity.getPhotoURL(),
+                (entity.getBio() != null) ? entity.getBio() : "",
                 entity.getDefultSize());
     }
 }

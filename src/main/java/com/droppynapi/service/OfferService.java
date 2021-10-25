@@ -42,7 +42,7 @@ public class OfferService {
 
     public Offer addOffer(Offer offer,String shoeId, String userId, String sizeId){
         //add references to offer
-
+        offer.set_id(null);
         Shoe shoe = shoeService.getShoeById(shoeId);
         offer.setShoe(shoe);
 

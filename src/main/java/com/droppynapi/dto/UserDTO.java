@@ -19,6 +19,7 @@ public class UserDTO {
     private String surname;
     private String phone;
     private String photoURL;
+    private String bio;
     private SizeChart defultSize;
 //    private List<Offer> myOffers;
 //    private List<Offer> favoriteOffers;

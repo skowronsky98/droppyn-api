@@ -17,11 +17,13 @@ public class User {
     @Id
     private String id;
     private String username;
+    private String password;
     private String email;
     private String firstname;
     private String surname;
     private String phone;
     private String photoURL;
+    private String bio;
     private SizeChart defultSize;
 
     @DBRef
@@ -29,7 +31,7 @@ public class User {
     @DBRef
     private List<Offer> favoriteOffers;
 
-    public User(String id, String username, String email, String firstname, String surname, String phone, String photoURL, SizeChart defultSize) {
+    public User(String id, String username, String email, String firstname, String surname, String phone, String photoURL, String bio, SizeChart defultSize) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -37,6 +39,7 @@ public class User {
         this.surname = surname;
         this.phone = phone;
         this.photoURL = photoURL;
+        this.bio = bio;
         this.defultSize = defultSize;
     }
 
