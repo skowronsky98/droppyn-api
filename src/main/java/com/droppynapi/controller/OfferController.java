@@ -4,7 +4,7 @@ import com.droppynapi.converter.OfferConverter;
 import com.droppynapi.dto.OfferAndroidDTO;
 import com.droppynapi.dto.OfferDTO;
 import com.droppynapi.model.Offer;
-import com.droppynapi.service.OfferService;
+import com.droppynapi.repo.OfferRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,44 +18,44 @@ import java.util.stream.Collectors;
 public class OfferController {
 
     @Autowired
-    private OfferService offerService;
+    private OfferRepo offerRepo;
 
     @GetMapping("/all")
     public List<OfferDTO> getAllOffers(){
-        return offerService.getAllOffers().stream()
+        return offerRepo.getAllOffers().stream()
                 .map(OfferConverter::toDTO)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/all/android")
     public List<OfferAndroidDTO> getAllAndroidOffers(){
-        return offerService.getAllOffers().stream()
+        return offerRepo.getAllOffers().stream()
                 .map(OfferConverter::toAndroidDTO)
                 .collect(Collectors.toList());
     }
 
     @GetMapping
     public OfferDTO getOfferById(@RequestParam(value = "id") String id){
-        return OfferConverter.toDTO(offerService.getOfferById(id));
+        return OfferConverter.toDTO(offerRepo.getOfferById(id));
     }
 
     @GetMapping("/shoe")
     public List<OfferDTO> getShoeOffers(@RequestParam(value = "shoeId") String shoeID){
-        return offerService.getAllShoeOffers(shoeID).stream()
+        return offerRepo.getAllShoeOffers(shoeID).stream()
                 .map(OfferConverter::toDTO)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/myoffer/all")
     public List<OfferDTO> getUserOffers(@RequestParam(value = "userId") String userId){
-        return offerService.getUserOffers(userId).stream()
+        return offerRepo.getUserOffers(userId).stream()
                 .map(OfferConverter::toDTO)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("/favoriteoffer/all")
     public List<OfferDTO> getUserFavoriteOffers(@RequestParam(value = "userId") String userId){
-        return offerService.getUserFavoriteOffers(userId).stream()
+        return offerRepo.getUserFavoriteOffers(userId).stream()
                 .map(OfferConverter::toDTO)
                 .collect(Collectors.toList());
     }
@@ -66,26 +66,26 @@ public class OfferController {
                              @RequestParam(value = "shoeId") String shoeId,
                              @RequestParam(value = "userId") String userId,
                              @RequestParam(value = "sizeId") String sizeId){
-        return OfferConverter.toDTO(offerService.addOffer(offer, shoeId, userId, sizeId));
+        return OfferConverter.toDTO(offerRepo.addOffer(offer, shoeId, userId, sizeId));
     }
 
     @PostMapping("/favoriteoffer")
     public OfferDTO addFavoriteOffer(@RequestParam(value = "id") String id,
                                      @RequestParam(value = "userId") String userId){
-        return OfferConverter.toDTO(offerService.addFavoriteOffer(id, userId));
+        return OfferConverter.toDTO(offerRepo.addFavoriteOffer(id, userId));
     }
 
     @DeleteMapping("/myoffer")
     public void deleteMyOfferById(@RequestParam(value = "id") String id,
                                   @RequestParam(value = "userId") String userId){
-        offerService.removeMyOfferById(id, userId);
+        offerRepo.removeMyOfferById(id, userId);
     }
 
 
     @DeleteMapping("/favoriteoffer")
     public void deleteFavoriteOfferById(@RequestParam(value = "id") String id,
                                   @RequestParam(value = "userId") String userId){
-        offerService.removeFavoriteOfferById(id, userId);
+        offerRepo.removeFavoriteOfferById(id, userId);
     }
 
     @PutMapping("/myoffer")
@@ -93,7 +93,7 @@ public class OfferController {
                              @RequestParam(value = "shoeId") String shoeId,
                              @RequestParam(value = "userId") String userId,
                              @RequestParam(value = "sizeId") String sizeId){
-        return OfferConverter.toDTO(offerService.updateMyOffer(offer, shoeId, userId, sizeId));
+        return OfferConverter.toDTO(offerRepo.updateMyOffer(offer, shoeId, userId, sizeId));
     }
 
 }

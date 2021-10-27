@@ -2,36 +2,41 @@ package com.droppynapi.service;
 
 import com.droppynapi.exception.ResourceNotFoundException;
 import com.droppynapi.model.Shoe;
+import com.droppynapi.repo.BrandRepo;
 import com.droppynapi.repo.ShoeRepo;
+import com.droppynapi.repodb.ShoeDatabaseRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
 
 @Service
-public class ShoeService {
+public class ShoeService implements ShoeRepo {
     @Autowired
-    private ShoeRepo shoeRepo;
+    private ShoeDatabaseRepo shoeDatabaseRepo;
 
     @Autowired
-    private BrandService brandService;
+    private BrandRepo brandRepo;
 
+    @Override
     public Shoe addShoe(Shoe shoe, String idBrand){
-        shoe.setBrand(brandService.getBrandById(idBrand));
-        return shoeRepo.save(shoe);
+        shoe.setBrand(brandRepo.getBrandById(idBrand));
+        return shoeDatabaseRepo.save(shoe);
     }
 
+    @Override
     public List<Shoe> getAllShoes(){
-        return shoeRepo.findAll();
+        return shoeDatabaseRepo.findAll();
     }
 
+    @Override
     public Shoe getShoeById(String id){
-        return shoeRepo.findById(id)
+        return shoeDatabaseRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("no shoe with id: "+id));
     }
 
+    @Override
     public void deleteShoe(String id){
-        shoeRepo.deleteById(id);
+        shoeDatabaseRepo.deleteById(id);
     }
 }
