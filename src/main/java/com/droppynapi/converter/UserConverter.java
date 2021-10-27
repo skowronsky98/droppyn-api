@@ -1,6 +1,7 @@
 package com.droppynapi.converter;
 
 import com.droppynapi.dto.UserDTO;
+import com.droppynapi.dto.UserUpdateDTO;
 import com.droppynapi.model.User;
 
 public class UserConverter {
@@ -17,7 +18,7 @@ public class UserConverter {
     }
 
     public static UserDTO toDTO(User entity){
-        return new UserDTO(entity.getId(),
+        return new UserDTO(entity.get_id(),
                 entity.getUsername(),
                 entity.getEmail(),
                 entity.getFirstname(),
@@ -27,4 +28,5 @@ public class UserConverter {
                 (entity.getBio() != null) ? entity.getBio() : "",
                 entity.getDefultSize());
     }
+
 }

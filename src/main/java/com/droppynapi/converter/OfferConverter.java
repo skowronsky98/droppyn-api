@@ -2,9 +2,7 @@ package com.droppynapi.converter;
 
 import com.droppynapi.dto.OfferAndroidDTO;
 import com.droppynapi.dto.OfferDTO;
-import com.droppynapi.dto.UserDTO;
 import com.droppynapi.model.Offer;
-import com.droppynapi.model.User;
 
 public class OfferConverter {
 //    public static Offer toEntity(OfferDTO dto) {
@@ -37,6 +35,6 @@ public class OfferConverter {
                 entity.getBio(),
                 entity.getShoe().get_id(),
                 entity.getSizeChart().get_id(),
-                entity.getUser().getId());
+                entity.getUser().get_id());
     }
 }

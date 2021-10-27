@@ -5,7 +5,7 @@ import com.droppynapi.model.Brand;
 import com.droppynapi.model.SizeChart;
 import com.droppynapi.repo.BrandRepo;
 import com.droppynapi.repo.SizeChartRepo;
-import com.droppynapi.repodb.SizeChartDatabaseRepo;
+import com.droppynapi.dao.SizeChartDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class SizeChartService implements SizeChartRepo {
     @Autowired
-    private SizeChartDatabaseRepo sizeChartRepo;
+    private SizeChartDao sizeChartRepo;
 
     @Autowired
     private BrandRepo brandRepo;

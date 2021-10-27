@@ -15,7 +15,7 @@ import java.util.List;
 @Document(collection = "user")
 public class User {
     @Id
-    private String id;
+    private String _id;
     private String username;
     private String password;
     private String email;
@@ -31,8 +31,8 @@ public class User {
     @DBRef
     private List<Offer> favoriteOffers;
 
-    public User(String id, String username, String email, String firstname, String surname, String phone, String photoURL, String bio, SizeChart defultSize) {
-        this.id = id;
+    public User(String _id, String username, String email, String firstname, String surname, String phone, String photoURL, String bio, SizeChart defultSize) {
+        this._id = _id;
         this.username = username;
         this.email = email;
         this.firstname = firstname;

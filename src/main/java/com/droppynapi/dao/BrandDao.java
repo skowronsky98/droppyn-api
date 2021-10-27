@@ -1,9 +1,9 @@
-package com.droppynapi.repodb;
+package com.droppynapi.dao;
 
 import com.droppynapi.model.Brand;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BrandDatabaseRepo extends MongoRepository<Brand,String> {
+public interface BrandDao extends MongoRepository<Brand,String> {
 }

@@ -2,6 +2,7 @@ package com.droppynapi.controller;
 
 import com.droppynapi.converter.UserConverter;
 import com.droppynapi.dto.UserDTO;
+import com.droppynapi.dto.UserUpdateDTO;
 import com.droppynapi.model.User;
 import com.droppynapi.repo.UserRepo;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +27,7 @@ public class UserController {
     }
 
     @PutMapping
-    public UserDTO updateUser(@RequestBody User user){
-        return UserConverter.toDTO(userRepo.updateUser(user));
+    public UserDTO updateUser(@RequestBody UserUpdateDTO userUpdateDTO){
+        return UserConverter.toDTO(userRepo.updateUser(userUpdateDTO));
     }
 }

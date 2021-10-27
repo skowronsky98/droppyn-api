@@ -9,7 +9,7 @@ import com.droppynapi.repo.OfferRepo;
 import com.droppynapi.repo.ShoeRepo;
 import com.droppynapi.repo.SizeChartRepo;
 import com.droppynapi.repo.UserRepo;
-import com.droppynapi.repodb.OfferDatabaseRepo;
+import com.droppynapi.dao.OfferDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 @Service
 public class OfferService implements OfferRepo {
     @Autowired
-    private OfferDatabaseRepo offerDatabaseRepo;
+    private OfferDao offerDao;
 
     @Autowired
     private UserRepo userRepo;
@@ -32,14 +32,14 @@ public class OfferService implements OfferRepo {
 
     @Override
     public List<Offer> getAllOffers(){
-        return offerDatabaseRepo.findAll()
+        return offerDao.findAll()
                 .stream()
                 .filter(offer -> !offer.getDeleted() && offer.getActive())
                 .collect(Collectors.toList());
     }
     @Override
     public List<Offer> getAllShoeOffers(String shoeId){
-        return offerDatabaseRepo.findAll().stream()
+        return offerDao.findAll().stream()
                 .filter(offer -> offer.getShoe().get_id().equals(shoeId) && !offer.getDeleted() && offer.getActive())
                 .collect(Collectors.toList());
     }
@@ -57,7 +57,7 @@ public class OfferService implements OfferRepo {
         User user = userRepo.getUserById(userId);
         offer.setUser(user);
 
-        offer = offerDatabaseRepo.save(offer);
+        offer = offerDao.save(offer);
 
         // add reference to user (owner)
 
@@ -89,7 +89,7 @@ public class OfferService implements OfferRepo {
 
     @Override
     public Offer getOfferById(String id){
-        return offerDatabaseRepo.findById(id)
+        return offerDao.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("no offer with id: "+id));
     }
 
@@ -107,7 +107,7 @@ public class OfferService implements OfferRepo {
 
             //set offer to unactice document
             offer.setDeleted(true);
-            offerDatabaseRepo.save(offer);
+            offerDao.save(offer);
 //        }
     }
 
@@ -140,7 +140,7 @@ public class OfferService implements OfferRepo {
             SizeChart sizeChart = sizeChartRepo.getSizeChartById(sizeId);
             offer.setSizeChart(sizeChart);
 
-            offer = offerDatabaseRepo.save(offer);
+            offer = offerDao.save(offer);
             // add new offer
             user.addOffer(offer);
             userRepo.createUser(user);

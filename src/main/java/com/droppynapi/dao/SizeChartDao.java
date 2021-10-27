@@ -1,9 +1,9 @@
-package com.droppynapi.repodb;
+package com.droppynapi.dao;
 
 import com.droppynapi.model.SizeChart;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SizeChartDatabaseRepo extends MongoRepository<SizeChart,String> {
+public interface SizeChartDao extends MongoRepository<SizeChart,String> {
 }

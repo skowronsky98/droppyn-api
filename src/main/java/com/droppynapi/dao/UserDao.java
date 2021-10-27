@@ -1,9 +1,9 @@
-package com.droppynapi.repodb;
+package com.droppynapi.dao;
 
 import com.droppynapi.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserDatabaseRepo extends MongoRepository<User,String> {
+public interface UserDao extends MongoRepository<User,String> {
 }
