@@ -4,17 +4,17 @@ import com.droppynapi.dto.user.UserDTO;
 import com.droppynapi.model.User;
 
 public class UserConverter {
-    public static User toEntity(UserDTO dto) {
-        return new User(dto.getId(),
-                dto.getUsername(),
-                dto.getEmail(),
-                dto.getFirstname(),
-                dto.getSurname(),
-                dto.getPhone(),
-                dto.getPhotoURL(),
-                dto.getBio(),
-                dto.getDefultSize());
-    }
+//    public static User toEntity(UserDTO dto) {
+//        return new User(dto.getId(),
+//                dto.getUsername(),
+//                dto.getEmail(),
+//                dto.getFirstname(),
+//                dto.getSurname(),
+//                dto.getPhone(),
+//                dto.getPhotoURL(),
+//                dto.getBio(),
+//                dto.getDefultSize());
+//    }
 
     public static UserDTO toDTO(User entity){
         return new UserDTO(entity.get_id(),
