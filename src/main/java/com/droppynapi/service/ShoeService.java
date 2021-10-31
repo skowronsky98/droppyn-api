@@ -6,6 +6,8 @@ import com.droppynapi.repo.BrandRepo;
 import com.droppynapi.repo.ShoeRepo;
 import com.droppynapi.dao.ShoeDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,5 +40,10 @@ public class ShoeService implements ShoeRepo {
     @Override
     public void deleteShoe(String id){
         shoeDao.deleteById(id);
+    }
+
+    @Override
+    public Page<Shoe> getShoesWithPaging(Pageable pageable) {
+        return shoeDao.findAll(pageable);
     }
 }

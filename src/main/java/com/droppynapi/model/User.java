@@ -3,6 +3,7 @@ package com.droppynapi.model;
 import com.droppynapi.exception.ResourceNotFoundException;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -17,9 +18,11 @@ import java.util.List;
 public class User {
     @Id
     private String _id;
+    @Indexed(unique = true)
     private String username;
-    private String password;
+    @Indexed(unique = true)
     private String email;
+    private String password;
     private String firstname;
     private String surname;
     private String phone;

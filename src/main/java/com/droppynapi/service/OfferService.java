@@ -11,6 +11,8 @@ import com.droppynapi.repo.SizeChartRepo;
 import com.droppynapi.repo.UserRepo;
 import com.droppynapi.dao.OfferDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -155,6 +157,11 @@ public class OfferService implements OfferRepo {
 
         // TODO return error cuz offer wasn't updated
         return offer;
+    }
+
+    @Override
+    public Page<Offer> getOffersWithPaging(Pageable pageable) {
+        return offerDao.findAll(pageable);
     }
 
     private User assignOfferToUser(User user, Offer offer){

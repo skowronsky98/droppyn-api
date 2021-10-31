@@ -1,12 +1,20 @@
 package com.droppynapi.controller;
 
 import com.droppynapi.converter.OfferConverter;
+import com.droppynapi.converter.ShoeConverter;
+import com.droppynapi.converter.SizeChartConverter;
+import com.droppynapi.converter.UserConverter;
 import com.droppynapi.dto.OfferAndroidDTO;
 import com.droppynapi.dto.OfferDTO;
 import com.droppynapi.model.Offer;
 import com.droppynapi.repo.OfferRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.internal.Function;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +27,8 @@ public class OfferController {
 
     @Autowired
     private OfferRepo offerRepo;
+
+
 
     @GetMapping("/all")
     public List<OfferDTO> getAllOffers(){
@@ -94,6 +104,14 @@ public class OfferController {
                              @RequestParam(value = "userId") String userId,
                              @RequestParam(value = "sizeId") String sizeId){
         return OfferConverter.toDTO(offerRepo.updateMyOffer(offer, shoeId, userId, sizeId));
+    }
+
+    @GetMapping("/page")
+    public Page<OfferDTO> getPageOffer(@RequestParam(value = "page") int page,
+                                    @RequestParam(value = "size") int size){
+        Pageable requestedPage = PageRequest.of(page,size);
+        return offerRepo.getOffersWithPaging(requestedPage).map(OfferConverter::toDTO);
+
     }
 
 }

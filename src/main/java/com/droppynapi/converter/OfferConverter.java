@@ -3,6 +3,8 @@ package com.droppynapi.converter;
 import com.droppynapi.dto.OfferAndroidDTO;
 import com.droppynapi.dto.OfferDTO;
 import com.droppynapi.model.Offer;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.domain.Page;
 
 public class OfferConverter {
 //    public static Offer toEntity(OfferDTO dto) {
@@ -37,4 +39,6 @@ public class OfferConverter {
                 entity.getSizeChart().get_id(),
                 entity.getUser().get_id());
     }
+
+
 }
