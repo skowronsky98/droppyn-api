@@ -1,4 +1,4 @@
-package com.droppynapi.dto;
+package com.droppynapi.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

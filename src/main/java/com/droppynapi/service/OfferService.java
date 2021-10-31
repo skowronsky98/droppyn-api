@@ -13,6 +13,7 @@ import com.droppynapi.dao.OfferDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,19 +61,22 @@ public class OfferService implements OfferRepo {
         offer = offerDao.save(offer);
 
         // add reference to user (owner)
-
-        user.addOffer(offer);
-        userRepo.createUser(user);
+        user = assignOfferToUser(user,offer);
+        userRepo.saveUser(user);
 
         return offer;
     }
+
+
 
     @Override
     public Offer addFavoriteOffer(String id, String userId){
         Offer offer = getOfferById(id);
         User user = userRepo.getUserById(userId);
-        user.addFavoriteOffer(offer);
-        userRepo.createUser(user);
+
+
+        user = assignFavoriteOfferToUser(user,offer);
+        userRepo.saveUser(user);
         return offer;
     }
 
@@ -102,8 +106,9 @@ public class OfferService implements OfferRepo {
 //        if(userId.equals(offer.getUser().getId())){
             //remove reference in user document
             User user = userRepo.getUserById(userId);
-            user.removeMyOffer(id);
-            userRepo.createUser(user);
+            user = removeMyOfferFromUser(user,offer);
+
+        userRepo.saveUser(user);
 
             //set offer to unactice document
             offer.setDeleted(true);
@@ -113,10 +118,10 @@ public class OfferService implements OfferRepo {
 
     @Override
     public void removeFavoriteOfferById(String id, String userId){
-//        Offer offer = getOfferById(id);
+        Offer offer = getOfferById(id);
         User user = userRepo.getUserById(userId);
-        user.removeFavoriteOffer(id);
-        userRepo.createUser(user);
+        user = removeFavoriteOfferFromUser(user, offer);
+        userRepo.saveUser(user);
     }
 
     @Override
@@ -129,7 +134,7 @@ public class OfferService implements OfferRepo {
 
 
             if(offer.get_id() != null)
-                user.removeMyOffer(offer.get_id());
+                user = removeMyOfferFromUser(user,offer);
             else
                 System.out.println("!!!!!!ERR");
             offer.setUser(user);
@@ -142,8 +147,8 @@ public class OfferService implements OfferRepo {
 
             offer = offerDao.save(offer);
             // add new offer
-            user.addOffer(offer);
-            userRepo.createUser(user);
+            user = assignOfferToUser(user,offer);
+            userRepo.saveUser(user);
 //
 //            return offer;
 //        }
@@ -151,5 +156,42 @@ public class OfferService implements OfferRepo {
         // TODO return error cuz offer wasn't updated
         return offer;
     }
+
+    private User assignOfferToUser(User user, Offer offer){
+        List<Offer> userOffers = user.getMyOffers();
+        userOffers.add(offer);
+        user.setMyOffers(userOffers);
+        return user;
+    }
+
+    private User assignFavoriteOfferToUser(User user, Offer offer){
+        List<Offer> userOffers = user.getFavoriteOffers();
+        userOffers.add(offer);
+        user.setFavoriteOffers(userOffers);
+        return user;
+    }
+
+    private User removeMyOfferFromUser(User user, Offer offer){
+
+        List<Offer> userOffers = user.getMyOffers();
+        Offer originalOffer = userOffers.stream().filter(o -> o.get_id().equals(offer.get_id()))
+                .findFirst()
+                .orElseThrow(() -> new ResourceNotFoundException("no offer with id: "+ offer.get_id()));
+        userOffers.remove(originalOffer);
+        user.setMyOffers(userOffers);
+        return user;
+    }
+
+    private User removeFavoriteOfferFromUser(User user, Offer offer){
+
+        List<Offer> userOffers = user.getFavoriteOffers();
+        Offer originalOffer = userOffers.stream().filter(o -> o.get_id().equals(offer.get_id()))
+                .findFirst()
+                .orElseThrow(() -> new ResourceNotFoundException("no offer with id: "+ offer.get_id()));
+        userOffers.remove(originalOffer);
+        user.setFavoriteOffers(userOffers);
+        return user;
+    }
+
 
 }

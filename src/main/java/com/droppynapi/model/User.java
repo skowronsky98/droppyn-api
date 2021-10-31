@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Data
@@ -27,9 +28,9 @@ public class User {
     private SizeChart defultSize;
 
     @DBRef
-    private List<Offer> myOffers;
+    private List<Offer> myOffers = new ArrayList<>();
     @DBRef
-    private List<Offer> favoriteOffers;
+    private List<Offer> favoriteOffers = new ArrayList<>();
 
     public User(String _id, String username, String email, String firstname, String surname, String phone, String photoURL, String bio, SizeChart defultSize) {
         this._id = _id;
@@ -43,49 +44,4 @@ public class User {
         this.defultSize = defultSize;
     }
 
-    public Offer addOffer(Offer offer){
-        if(myOffers == null)
-            myOffers = new ArrayList<>();
-
-        myOffers.add(offer);
-        return offer;
-    }
-
-    public boolean removeMyOffer(String idOffer){
-        if(myOffers==null)
-            return false;
-        Offer offer = myOffers.stream().filter(o -> o.get_id().equals(idOffer))
-                .findFirst()
-                .orElseThrow(() -> new ResourceNotFoundException("no offer with id: "+idOffer));
-        return myOffers.remove(offer);
-    }
-
-    public Offer addFavoriteOffer(Offer offer){
-        if(favoriteOffers == null)
-            favoriteOffers = new ArrayList<>();
-        favoriteOffers.add(offer);
-        return offer;
-    }
-
-    public boolean removeFavoriteOffer(String idOffer){
-        if(favoriteOffers==null)
-            return false;
-
-        Offer offer = favoriteOffers.stream().filter(o -> o.get_id().equals(idOffer))
-                .findFirst()
-                .orElseThrow(() -> new ResourceNotFoundException("no brand with id: "+idOffer));
-        return favoriteOffers.remove(offer);
-    }
-
-    public List<Offer> getMyOffers() {
-        if(myOffers != null)
-            return myOffers;
-        return new ArrayList<>();
-    }
-
-    public List<Offer> getFavoriteOffers() {
-        if(favoriteOffers!=null)
-            return favoriteOffers;
-        return new ArrayList<>();
-    }
 }

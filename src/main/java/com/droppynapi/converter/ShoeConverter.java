@@ -1,9 +1,7 @@
 package com.droppynapi.converter;
 
 import com.droppynapi.dto.ShoeDTO;
-import com.droppynapi.dto.UserDTO;
 import com.droppynapi.model.Shoe;
-import com.droppynapi.model.User;
 
 public class ShoeConverter {
 //    public static Shoe toEntity(ShoeDTO dto) {

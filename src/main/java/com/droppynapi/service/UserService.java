@@ -1,6 +1,6 @@
 package com.droppynapi.service;
 
-import com.droppynapi.dto.UserUpdateDTO;
+import com.droppynapi.dto.user.UserUpdateDTO;
 import com.droppynapi.exception.ResourceNotFoundException;
 import com.droppynapi.model.SizeChart;
 import com.droppynapi.model.User;
@@ -44,6 +44,11 @@ public class UserService implements UserRepo {
             return userDao.save(user);
         }
         return null;
+    }
+
+    @Override
+    public User saveUser(User user) {
+        return userDao.save(user);
     }
 
     @Override

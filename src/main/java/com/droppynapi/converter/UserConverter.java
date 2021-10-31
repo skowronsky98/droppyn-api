@@ -1,7 +1,6 @@
 package com.droppynapi.converter;
 
-import com.droppynapi.dto.UserDTO;
-import com.droppynapi.dto.UserUpdateDTO;
+import com.droppynapi.dto.user.UserDTO;
 import com.droppynapi.model.User;
 
 public class UserConverter {

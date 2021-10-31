@@ -30,4 +30,7 @@ public class Offer {
     @DBRef
     private User user;
 
+    public Offer(String _id) {
+        this._id = _id;
+    }
 }

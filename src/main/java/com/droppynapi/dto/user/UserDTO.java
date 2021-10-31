@@ -1,4 +1,4 @@
-package com.droppynapi.dto;
+package com.droppynapi.dto.user;
 
 import com.droppynapi.model.Offer;
 import com.droppynapi.model.SizeChart;
