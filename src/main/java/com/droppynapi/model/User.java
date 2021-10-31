@@ -3,6 +3,7 @@ package com.droppynapi.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bson.LazyBSONList;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -34,5 +35,6 @@ public class User {
     private List<Offer> myOffers = new ArrayList<>();
     @DBRef
     private List<Offer> favoriteOffers = new ArrayList<>();
-
+    @DBRef
+    private List<Role> roles = new ArrayList<>();
 }
