@@ -19,14 +19,15 @@ import java.io.IOException;
 import java.util.*;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Slf4j
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if(request.getServletPath().equals("/login")){
+//        || request.getServletPath().equals("/user/token/refresh")
+        if(request.getServletPath().equals("/login") ){
             filterChain.doFilter(request,response);
         } else {
             String authorizationHeader = request.getHeader(AUTHORIZATION);
@@ -52,6 +53,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     log.error("Error logging in: {}", e.getMessage());
                     response.setHeader("error", e.getMessage());
 //                    response.setHeader(FORBIDDEN.value());
+                    response.setStatus(UNAUTHORIZED.value());
                     Map<String,String> error = new HashMap<>();
                     error.put("error_message", e.getMessage());
                     response.setContentType(APPLICATION_JSON_VALUE);

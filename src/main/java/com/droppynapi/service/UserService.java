@@ -1,6 +1,11 @@
 package com.droppynapi.service;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.droppynapi.dao.RoleDao;
+import com.droppynapi.dao.UserDao;
 import com.droppynapi.dto.user.UserUpdateDTO;
 import com.droppynapi.exception.ResourceNotFoundException;
 import com.droppynapi.model.Role;
@@ -8,26 +13,23 @@ import com.droppynapi.model.SizeChart;
 import com.droppynapi.model.User;
 import com.droppynapi.repo.SizeChartRepo;
 import com.droppynapi.repo.UserRepo;
-import com.droppynapi.dao.UserDao;
+import com.droppynapi.utills.Utills;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Transient;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 @RequiredArgsConstructor
-@Transactional
 public class UserService implements UserRepo, UserDetailsService {
     @Autowired
     private UserDao userDao;
@@ -97,7 +99,7 @@ public class UserService implements UserRepo, UserDetailsService {
         User user = userDao.findUserByUsername(username);
         Role role = roleDao.findRoleByName(roleName);
         user.getRoles().add(role);
-        userDao.save(user);
+//        userDao.save(user);
     }
 
     @Override
@@ -110,12 +112,46 @@ public class UserService implements UserRepo, UserDetailsService {
         return roleDao.save(role);
     }
 
+
     @Override
     public User createUser(User user){
 
         user.set_id(null);
+        addRoleToUser(user.getUsername(), Utills.ROLE_USER);
         return userDao.save(user);
     }
 
+    @Override
+    public Map<String,String> refreshToken(String authorizationHeader) {
+        if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            try {
+                String refresh_token = authorizationHeader.substring("Bearer ".length());
+                Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
+                JWTVerifier verifier = JWT.require(algorithm).build();
+                DecodedJWT decodedJWT = verifier.verify(refresh_token);
+                String username = decodedJWT.getSubject();
+                User user = userDao.findUserByUsername(username);
+
+                String access_token = JWT.create()
+                        .withSubject(user.getUsername())
+                        .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
+                        .withIssuer("Droppyn")
+                        .withClaim("roles", user.getRoles().stream().map(Role::getName).collect(Collectors.toList()))
+                        .sign(algorithm);
+
+                Map<String,String> tokens = new HashMap<>();
+                tokens.put("access_token",access_token);
+                tokens.put("refresh_token",refresh_token);
+                return tokens;
+
+            }catch (Exception e) {
+                throw e;
+            }
+
+        }
+        return null;
+
+
+    }
 
 }
