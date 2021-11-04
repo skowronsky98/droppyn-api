@@ -41,7 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.GET,"/sizechart","/sizechart/all").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
                 .antMatchers(HttpMethod.GET,"/shoe","/shoe/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
                 .antMatchers(HttpMethod.GET,"/offer", "/offer/page", "/offer/all", "/offer/shoe","/offer/my/all","/offer/favorite/all").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
-                .antMatchers(HttpMethod.GET,"/user","/user/token/refresh").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
+                .antMatchers(HttpMethod.GET,"/user","/user/token/refresh","/user/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
 
                 .antMatchers(HttpMethod.POST,"/offer/my","/offer/favorite").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
 
