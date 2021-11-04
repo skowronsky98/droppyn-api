@@ -6,6 +6,7 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.droppynapi.dao.RoleDao;
 import com.droppynapi.dao.UserDao;
+import com.droppynapi.dto.user.RegisterUserDTO;
 import com.droppynapi.dto.user.UserUpdateDTO;
 import com.droppynapi.exception.ResourceNotFoundException;
 import com.droppynapi.model.Role;
@@ -114,11 +115,23 @@ public class UserService implements UserRepo, UserDetailsService {
 
 
     @Override
-    public User createUser(User user){
+    public User registerUser(RegisterUserDTO user){
 
-        user.set_id(null);
-        addRoleToUser(user.getUsername(), Utills.ROLE_USER);
-        return userDao.save(user);
+        if(user != null && user.getUsername() != null && !user.getUsername().isEmpty() && user.getEmail() != null && !user.getEmail().isEmpty() && user.getPassword() != null && !user.getPassword().isEmpty()) {
+            if(userDao.findUserByUsername(user.getUsername()) != null)
+                return null;
+
+            User newUser = new User();
+            newUser.setUsername(user.getUsername());
+            newUser.setEmail(user.getEmail());
+            newUser.setPassword(user.getPassword());
+
+            newUser.getRoles().add(roleDao.findRoleByName(Utills.ROLE_USER));
+
+            return saveUser(newUser);
+        }
+
+        return null;
     }
 
     @Override
@@ -134,7 +147,7 @@ public class UserService implements UserRepo, UserDetailsService {
 
                 String access_token = JWT.create()
                         .withSubject(user.getUsername())
-                        .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
+                        .withExpiresAt(new Date(System.currentTimeMillis() +  24 * 60 * 60 * 1000))
                         .withIssuer("Droppyn")
                         .withClaim("roles", user.getRoles().stream().map(Role::getName).collect(Collectors.toList()))
                         .sign(algorithm);

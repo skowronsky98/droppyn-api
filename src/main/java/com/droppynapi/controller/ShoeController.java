@@ -36,7 +36,7 @@ public class ShoeController {
     }
 
     @GetMapping
-    public ShoeDTO getShoeById(@RequestBody String id){
+    public ShoeDTO getShoeById(@RequestParam String id){
         return ShoeConverter.toDTO(shoeRepo.getShoeById(id));
     }
 

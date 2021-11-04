@@ -1,6 +1,7 @@
 package com.droppynapi.controller;
 
 import com.droppynapi.converter.UserConverter;
+import com.droppynapi.dto.user.RegisterUserDTO;
 import com.droppynapi.dto.user.RoleToUserForm;
 import com.droppynapi.dto.user.UserDTO;
 import com.droppynapi.dto.user.UserUpdateDTO;
@@ -22,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -33,9 +35,14 @@ public class UserController {
     @Autowired
     private UserRepo userRepo;
 
-    @PostMapping
-    public UserDTO createUser(@RequestBody User user){
-        return UserConverter.toDTO(userRepo.createUser(user));
+    @PostMapping("/register")
+    public ResponseEntity<UserDTO> registerUser(@RequestBody RegisterUserDTO registerUserDTO){
+        User user = userRepo.registerUser(registerUserDTO);
+
+        if(user != null)
+            return ResponseEntity.ok(UserConverter.toDTO(user));
+
+        return ResponseEntity.status(BAD_REQUEST).body(null);
     }
 
     @GetMapping
@@ -80,6 +87,8 @@ public class UserController {
         if(tokens != null){
             response.setContentType(APPLICATION_JSON_VALUE);
             new ObjectMapper().writeValue(response.getOutputStream(), tokens);
+        } else {
+            response.sendError(UNAUTHORIZED.value());
         }
 
 

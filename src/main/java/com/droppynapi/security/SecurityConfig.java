@@ -2,6 +2,7 @@ package com.droppynapi.security;
 
 import com.droppynapi.filter.CustomAuthenticationFilter;
 import com.droppynapi.filter.CustomAuthorizationFilter;
+import com.droppynapi.utills.Utills;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,17 +32,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers(HttpMethod.GET,"/user/token/refresh").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET,"/**").hasAnyAuthority("ROLE_SUPERADMIN");
-//        http.authorizeRequests().antMatchers(HttpMethod.GET,"/user/**").hasAnyAuthority("ROLE_SUPERADMIN");
-        http.authorizeRequests().antMatchers(HttpMethod.GET,"/user/**").hasAnyAuthority("ROLE_USER");
-        http.authorizeRequests().antMatchers(HttpMethod.GET,"/shoe/**").hasAnyAuthority("ROLE_USER");
-//        http.authorizeRequests().antMatchers(HttpMethod.GET,"/offer/**").hasAnyAuthority("ROLE_SUPERADMIN");
-        http.authorizeRequests().anyRequest().authenticated();
-        http.addFilter(new CustomAuthenticationFilter(authenticationManagerBean()));
-        http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .authorizeRequests()
+//                .antMatchers(HttpMethod.GET,"/user/token/refresh").permitAll()
+                .antMatchers(HttpMethod.POST,"/user/register").permitAll()
+
+                .antMatchers(HttpMethod.GET,"/brand/all").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
+                .antMatchers(HttpMethod.GET,"/sizechart","/sizechart/all").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
+                .antMatchers(HttpMethod.GET,"/shoe","/shoe/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
+                .antMatchers(HttpMethod.GET,"/offer", "/offer/page", "/offer/all", "/offer/shoe","/offer/myoffer/all","/offer/favoriteoffer/all").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
+                .antMatchers(HttpMethod.GET,"/user","/user/token/refresh").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
+
+                .antMatchers(HttpMethod.POST,"/offer/myoffer","/offer/favoriteoffer").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
+
+                .antMatchers(HttpMethod.PUT,"/offer/myoffer").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
+                .antMatchers(HttpMethod.PUT,"/user").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
+
+                .antMatchers(HttpMethod.DELETE,"/offer/myoffer","/offer/favoriteoffer").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
+
+                .antMatchers(HttpMethod.GET,"/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN)
+                .antMatchers(HttpMethod.POST,"/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN)
+                .antMatchers(HttpMethod.DELETE,"/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN)
+                .antMatchers(HttpMethod.PUT,"/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN)
+                .antMatchers(HttpMethod.PATCH,"/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN)
+//                .anyRequest().authenticated()
+                .and().addFilter(new CustomAuthenticationFilter(authenticationManagerBean()))
+                .addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+                .csrf().disable();
     }
 
     @Bean
