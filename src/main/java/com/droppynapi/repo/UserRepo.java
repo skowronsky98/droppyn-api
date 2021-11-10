@@ -18,4 +18,6 @@ public interface UserRepo {
     User getUserByUsername(String username);
     Role saveRole(Role role);
     Map<String,String> refreshToken(String authHeader);
+    Map<String,String> generateToken();
+
 }

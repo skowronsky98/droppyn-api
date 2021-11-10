@@ -17,7 +17,7 @@ public class DroppynApiApplication {
     }
 
     @Bean
-    PasswordEncoder passwordEncoder(){
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 

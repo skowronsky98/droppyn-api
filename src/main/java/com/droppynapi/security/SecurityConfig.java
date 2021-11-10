@@ -4,6 +4,7 @@ import com.droppynapi.filter.CustomAuthenticationFilter;
 import com.droppynapi.filter.CustomAuthorizationFilter;
 import com.droppynapi.utills.Utills;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -22,6 +23,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsService userDetailsService;
+
+    @Autowired
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
@@ -36,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 //                .antMatchers(HttpMethod.GET,"/user/token/refresh").permitAll()
                 .antMatchers(HttpMethod.POST,"/user/register").permitAll()
+                .antMatchers(HttpMethod.POST,"/login").permitAll()
 
                 .antMatchers(HttpMethod.GET,"/brand/all").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
                 .antMatchers(HttpMethod.GET,"/sizechart","/sizechart/all").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
@@ -55,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE,"/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN)
                 .antMatchers(HttpMethod.PUT,"/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN)
                 .antMatchers(HttpMethod.PATCH,"/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN)
-//                .anyRequest().authenticated()
+                .anyRequest().authenticated()
                 .and().addFilter(new CustomAuthenticationFilter(authenticationManagerBean()))
                 .addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable();

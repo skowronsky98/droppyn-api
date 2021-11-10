@@ -50,7 +50,7 @@ public class UserService implements UserRepo, UserDetailsService {
             log.error("User {} not found in database",username);
             throw new UsernameNotFoundException("User not found in database");
         } else {
-            log.error("User {} found in database",username);
+            log.info("User {} found in database",username);
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         user.getRoles().forEach(role -> {
@@ -71,10 +71,10 @@ public class UserService implements UserRepo, UserDetailsService {
         if(userUpdateDTO.getId() != null) {
             User user = getUserById(userUpdateDTO.getId());
 
-            user.setUsername(userUpdateDTO.getUsername());
+//            user.setUsername(userUpdateDTO.getUsername());
             user.setFirstname(userUpdateDTO.getFirstname());
             user.setSurname(userUpdateDTO.getSurname());
-            if(userUpdateDTO.getPhone().length() == 6)
+            if(userUpdateDTO.getPhone().length() == 9)
                 user.setPhone(userUpdateDTO.getPhone());
             user.setPhotoURL(userUpdateDTO.getPhotoURL());
             user.setBio(userUpdateDTO.getBio());
@@ -83,7 +83,7 @@ public class UserService implements UserRepo, UserDetailsService {
                 SizeChart size = sizeChartRepo.getSizeChartById(userUpdateDTO.getIdDefultSize());
                 user.setDefultSize(size);
             }
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            //user.setPassword(passwordEncoder.encode(user.getPassword()));
             return userDao.save(user);
         }
         return null;
@@ -91,9 +91,14 @@ public class UserService implements UserRepo, UserDetailsService {
 
     @Override
     public User saveUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userDao.save(user);
     }
+
+//    @Override
+//    public User saveUser(User user) {
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        return userDao.save(user);
+//    }
 
     @Override
     public void addRoleToUser(String username, String roleName) {
@@ -124,11 +129,11 @@ public class UserService implements UserRepo, UserDetailsService {
             User newUser = new User();
             newUser.setUsername(user.getUsername());
             newUser.setEmail(user.getEmail());
-            newUser.setPassword(user.getPassword());
+            newUser.setPassword(passwordEncoder.encode(user.getPassword()));
 
             newUser.getRoles().add(roleDao.findRoleByName(Utills.ROLE_USER));
 
-            return saveUser(newUser);
+            return userDao.save(newUser);
         }
 
         return null;
@@ -165,6 +170,12 @@ public class UserService implements UserRepo, UserDetailsService {
         return null;
 
 
+    }
+
+    @Override
+    public Map<String, String> generateToken() {
+
+        return null;
     }
 
 }
