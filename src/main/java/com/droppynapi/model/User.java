@@ -33,8 +33,8 @@ public class User {
 
     @DBRef
     private List<Offer> myOffers = new ArrayList<>();
-    @DBRef
-    private List<Offer> favoriteOffers = new ArrayList<>();
+//    @DBRef
+//    private List<Offer> favoriteOffers = new ArrayList<>();
     @DBRef
     private List<Role> roles = new ArrayList<>();
 }

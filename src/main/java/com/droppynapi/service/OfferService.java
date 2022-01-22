@@ -34,20 +34,6 @@ public class OfferService implements OfferRepo {
     private SizeChartRepo sizeChartRepo;
 
     @Override
-    public List<Offer> getAllOffers(){
-        return offerDao.findAll()
-                .stream()
-                .filter(offer -> !offer.getDeleted() && offer.getActive())
-                .collect(Collectors.toList());
-    }
-    @Override
-    public List<Offer> getAllShoeOffers(String shoeId){
-        return offerDao.findAll().stream()
-                .filter(offer -> offer.getShoe().get_id().equals(shoeId) && !offer.getDeleted() && offer.getActive())
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public Offer addOffer(Offer offer,String shoeId, String userId, String sizeId){
         //add references to offer
         offer.set_id(null);
@@ -69,28 +55,44 @@ public class OfferService implements OfferRepo {
         return offer;
     }
 
-
-
     @Override
-    public Offer addFavoriteOffer(String id, String userId){
-        Offer offer = getOfferById(id);
-        User user = userRepo.getUserById(userId);
-
-
-        user = assignFavoriteOfferToUser(user,offer);
-        userRepo.saveUser(user);
-        return offer;
+    public List<Offer> getAllOffers(){
+        return offerDao.findAll()
+                .stream()
+                .filter(offer -> !offer.getDeleted() && offer.getActive())
+                .collect(Collectors.toList());
     }
+    @Override
+    public List<Offer> getAllShoeOffers(String shoeId){
+        return offerDao.findAll().stream()
+                .filter(offer -> offer.getShoe().get_id().equals(shoeId) && !offer.getDeleted() && offer.getActive())
+                .collect(Collectors.toList());
+    }
+
+
+
+
+
+//    @Override
+//    public Offer addFavoriteOffer(String id, String userId){
+//        Offer offer = getOfferById(id);
+//        User user = userRepo.getUserById(userId);
+//
+//
+//        user = assignFavoriteOfferToUser(user,offer);
+//        userRepo.saveUser(user);
+//        return offer;
+//    }
 
     @Override
     public List<Offer> getUserOffers(String userId){
         return userRepo.getUserById(userId).getMyOffers();
     }
 
-    @Override
-    public List<Offer> getUserFavoriteOffers(String userId){
-        return userRepo.getUserById(userId).getFavoriteOffers();
-    }
+//    @Override
+//    public List<Offer> getUserFavoriteOffers(String userId){
+//        return userRepo.getUserById(userId).getFavoriteOffers();
+//    }
 
 
     @Override
@@ -118,13 +120,13 @@ public class OfferService implements OfferRepo {
 //        }
     }
 
-    @Override
-    public void removeFavoriteOfferById(String id, String userId){
-        Offer offer = getOfferById(id);
-        User user = userRepo.getUserById(userId);
-        user = removeFavoriteOfferFromUser(user, offer);
-        userRepo.saveUser(user);
-    }
+//    @Override
+//    public void removeFavoriteOfferById(String id, String userId){
+//        Offer offer = getOfferById(id);
+//        User user = userRepo.getUserById(userId);
+//        user = removeFavoriteOfferFromUser(user, offer);
+//        userRepo.saveUser(user);
+//    }
 
     @Override
     public Offer updateMyOffer(Offer offer,String shoeId, String userId, String sizeId){
@@ -171,12 +173,12 @@ public class OfferService implements OfferRepo {
         return user;
     }
 
-    private User assignFavoriteOfferToUser(User user, Offer offer){
-        List<Offer> userOffers = user.getFavoriteOffers();
-        userOffers.add(offer);
-        user.setFavoriteOffers(userOffers);
-        return user;
-    }
+//    private User assignFavoriteOfferToUser(User user, Offer offer){
+//        List<Offer> userOffers = user.getFavoriteOffers();
+//        userOffers.add(offer);
+//        user.setFavoriteOffers(userOffers);
+//        return user;
+//    }
 
     private User removeMyOfferFromUser(User user, Offer offer){
 
@@ -189,16 +191,16 @@ public class OfferService implements OfferRepo {
         return user;
     }
 
-    private User removeFavoriteOfferFromUser(User user, Offer offer){
-
-        List<Offer> userOffers = user.getFavoriteOffers();
-        Offer originalOffer = userOffers.stream().filter(o -> o.get_id().equals(offer.get_id()))
-                .findFirst()
-                .orElseThrow(() -> new ResourceNotFoundException("no offer with id: "+ offer.get_id()));
-        userOffers.remove(originalOffer);
-        user.setFavoriteOffers(userOffers);
-        return user;
-    }
+//    private User removeFavoriteOfferFromUser(User user, Offer offer){
+//
+//        List<Offer> userOffers = user.getFavoriteOffers();
+//        Offer originalOffer = userOffers.stream().filter(o -> o.get_id().equals(offer.get_id()))
+//                .findFirst()
+//                .orElseThrow(() -> new ResourceNotFoundException("no offer with id: "+ offer.get_id()));
+//        userOffers.remove(originalOffer);
+//        user.setFavoriteOffers(userOffers);
+//        return user;
+//    }
 
 
 }

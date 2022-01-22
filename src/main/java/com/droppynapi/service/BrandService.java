@@ -26,6 +26,7 @@ public class BrandService implements BrandRepo {
 
     @Override
     public Brand getBrandById(String id){
+
         return brandDao.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("no brand with id: "+id));
     }

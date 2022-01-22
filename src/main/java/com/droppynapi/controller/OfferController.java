@@ -23,7 +23,13 @@ public class OfferController {
     @Autowired
     private OfferRepo offerRepo;
 
-
+    @PostMapping("/my")
+    public OfferDTO addOffer(@RequestBody Offer offer,
+                             @RequestParam(value = "shoeId") String shoeId,
+                             @RequestParam(value = "userId") String userId,
+                             @RequestParam(value = "sizeId") String sizeId){
+        return OfferConverter.toDTO(offerRepo.addOffer(offer, shoeId, userId, sizeId));
+    }
 
     @GetMapping("/all")
     public List<OfferDTO> getAllOffers(){
@@ -51,6 +57,8 @@ public class OfferController {
                 .collect(Collectors.toList());
     }
 
+
+
     @GetMapping("/my/all")
     public List<OfferDTO> getUserOffers(@RequestParam(value = "userId") String userId){
         return offerRepo.getUserOffers(userId).stream()
@@ -58,27 +66,21 @@ public class OfferController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/favorite/all")
-    public List<OfferDTO> getUserFavoriteOffers(@RequestParam(value = "userId") String userId){
-        return offerRepo.getUserFavoriteOffers(userId).stream()
-                .map(OfferConverter::toDTO)
-                .collect(Collectors.toList());
-    }
+//    @GetMapping("/favorite/all")
+//    public List<OfferDTO> getUserFavoriteOffers(@RequestParam(value = "userId") String userId){
+//        return offerRepo.getUserFavoriteOffers(userId).stream()
+//                .map(OfferConverter::toDTO)
+//                .collect(Collectors.toList());
+//    }
 
 
-    @PostMapping("/my")
-    public OfferDTO addOffer(@RequestBody Offer offer,
-                             @RequestParam(value = "shoeId") String shoeId,
-                             @RequestParam(value = "userId") String userId,
-                             @RequestParam(value = "sizeId") String sizeId){
-        return OfferConverter.toDTO(offerRepo.addOffer(offer, shoeId, userId, sizeId));
-    }
 
-    @PostMapping("/favorite")
-    public OfferDTO addFavoriteOffer(@RequestParam(value = "id") String id,
-                                     @RequestParam(value = "userId") String userId){
-        return OfferConverter.toDTO(offerRepo.addFavoriteOffer(id, userId));
-    }
+
+//    @PostMapping("/favorite")
+//    public OfferDTO addFavoriteOffer(@RequestParam(value = "id") String id,
+//                                     @RequestParam(value = "userId") String userId){
+//        return OfferConverter.toDTO(offerRepo.addFavoriteOffer(id, userId));
+//    }
 
     @DeleteMapping("/my")
     public void deleteMyOfferById(@RequestParam(value = "id") String id,
@@ -87,11 +89,11 @@ public class OfferController {
     }
 
 
-    @DeleteMapping("/favorite")
-    public void deleteFavoriteOfferById(@RequestParam(value = "id") String id,
-                                  @RequestParam(value = "userId") String userId){
-        offerRepo.removeFavoriteOfferById(id, userId);
-    }
+//    @DeleteMapping("/favorite")
+//    public void deleteFavoriteOfferById(@RequestParam(value = "id") String id,
+//                                  @RequestParam(value = "userId") String userId){
+//        offerRepo.removeFavoriteOfferById(id, userId);
+//    }
 
     @PutMapping("/my")
     public OfferDTO updateOffer(@RequestBody Offer offer,

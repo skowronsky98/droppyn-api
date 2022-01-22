@@ -12,4 +12,5 @@ public interface OfferDao extends MongoRepository<Offer,String> {
 
 //    Page<Offer> getOffersWithPaging(Pageable pageable);
 //    Page<Offer> getOfferByShoeWithPaging(Shoe shoe, Pageable pageable);
+
 }
