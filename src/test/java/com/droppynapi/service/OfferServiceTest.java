@@ -91,25 +91,19 @@ public class OfferServiceTest {
 
     @Test
     public void shoudAssignShoeToNewOfferObject() {
-
         Offer createdOffer = offerService.addOffer(newOffer,"1","1","1");
-
         Assert.assertNotNull(createdOffer.getShoe());
     }
 
     @Test
     public void shoudAssignUserToNewOfferObject() {
-
         Offer createdOffer = offerService.addOffer(newOffer,"1","1","1");
-
         Assert.assertNotNull(createdOffer.getUser());
     }
 
     @Test
     public void shoudAssignSizeToNewOfferObject() {
-
         Offer createdOffer = offerService.addOffer(newOffer,"1","1","1");
-
         Assert.assertNotNull(createdOffer.getSizeChart());
     }
 

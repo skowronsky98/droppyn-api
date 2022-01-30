@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.droppynapi.model.SizeChart</OriginalElement>
+  <nodes>
+    <node x="-254.53244746600748" y="600.876390605686">com.droppynapi.model.User</node>
+    <node x="397.0259579728058" y="263.9018045280221">com.droppynapi.model.Media</node>
+    <node x="167.00370017745064" y="359.3631593264487">com.droppynapi.model.Brand</node>
+    <node x="-172.36217552533998" y="129.0">com.droppynapi.model.Shoe</node>
+    <node x="397.0259579728058" y="600.876390605686">com.droppynapi.model.Offer</node>
+    <node x="-54.00991306468143" y="407.84548825710755">com.droppynapi.model.SizeChart</node>
+    <node x="-244.26276040881547" y="451.84548825710755">com.droppynapi.model.Role</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.droppynapi.model.Offer" target="com.droppynapi.model.User" relationship="TO_ONE">
+      <point x="15.0" y="104.5" />
+      <point x="499.5259579728058" y="872.9116192830655" />
+      <point x="91.5" y="123.53522867737956" />
+    </edge>
+    <edge source="com.droppynapi.model.SizeChart" target="com.droppynapi.model.Brand" relationship="TO_ONE">
+      <point x="-8.693531857240089E-5" y="-82.50048825710752" />
+      <point x="10.49" y="369.0" />
+      <point x="92.49" y="369.0" />
+      <point x="92.49" y="415.345" />
+      <point x="-65.49970017745065" y="6.481840673551346" />
+    </edge>
+    <edge source="com.droppynapi.model.Offer" target="com.droppynapi.model.Shoe" relationship="TO_ONE">
+      <point x="87.5" y="15.0" />
+      <point x="622.5259579728058" y="720.376390605686" />
+      <point x="622.5259579728058" y="90.0" />
+      <point x="-144.1744583808438" y="90.0" />
+      <point x="-37.31228285550381" y="-60.536488027366005" />
+    </edge>
+    <edge source="com.droppynapi.model.User" target="com.droppynapi.model.Role" relationship="TO_MANY">
+      <point x="0.0" y="-148.5" />
+      <point x="17.730312942807984" y="38.49999999999994" />
+    </edge>
+    <edge source="com.droppynapi.model.Brand" target="com.droppynapi.model.Media" relationship="DEPENDENCY">
+      <point x="64.6422519320135" y="37.52338571346013" />
+      <point x="297.14595210946413" y="442.55201238241165" />
+      <point x="314.55302166476633" y="442.55201238241165" />
+      <point x="314.55302166476633" y="440.5678449258837" />
+      <point x="363.0" y="440.5678449258837" />
+      <point x="363.0" y="357.30330672748005" />
+      <point x="-77.74602638785711" y="43.90150219945792" />
+    </edge>
+    <edge source="com.droppynapi.model.Shoe" target="com.droppynapi.model.Brand" relationship="TO_ONE">
+      <point x="-47.74982447466002" y="60.5" />
+      <point x="-154.612" y="328.92274412855375" />
+      <point x="120.9968935563846" y="328.92274412855375" />
+      <point x="120.9968935563846" y="380.8540478905359" />
+      <point x="-62.32696129489648" y="-28.009111435912757" />
+    </edge>
+    <edge source="com.droppynapi.model.Offer" target="com.droppynapi.model.SizeChart" relationship="TO_ONE">
+      <point x="-87.5" y="0.0" />
+      <point x="39.111744583808445" y="705.376390605686" />
+      <point x="28.621657648489872" y="88.95440053672127" />
+    </edge>
+    <edge source="com.droppynapi.model.User" target="com.droppynapi.model.SizeChart" relationship="DEPENDENCY">
+      <point x="45.75" y="-148.5" />
+      <point x="-117.28244746600748" y="804.6647662485747" />
+      <point x="-0.8221208665906374" y="804.6647662485747" />
+      <point x="-11.31220780190921" y="89.97834580468026" />
+    </edge>
+    <edge source="com.droppynapi.model.Shoe" target="com.droppynapi.model.Brand" relationship="DEPENDENCY">
+      <point x="40.50755750937648" y="56.193272519954405" />
+      <point x="-66.3546180159635" y="288.34663625997723" />
+      <point x="25.800456100342103" y="288.34663625997723" />
+      <point x="25.800456100342103" y="229.62941847206383" />
+      <point x="232.504" y="229.62941847206383" />
+      <point x="2.9982254935134733E-4" y="-49.50015932644868" />
+    </edge>
+    <edge source="com.droppynapi.model.User" target="com.droppynapi.model.Offer" relationship="TO_MANY">
+      <point x="91.5" y="108.53522867737956" />
+      <point x="484.5259579728058" y="857.9116192830655" />
+      <point x="0.0" y="104.5" />
+    </edge>
+    <edge source="com.droppynapi.model.User" target="com.droppynapi.model.SizeChart" relationship="TO_ONE">
+      <point x="-45.75" y="-148.5" />
+      <point x="-208.78244746600748" y="786.2337514253136" />
+      <point x="-21.759913064681427" y="786.2337514253136" />
+      <point x="-32.25" y="82.49999999999994" />
+    </edge>
+    <edge source="com.droppynapi.model.Offer" target="com.droppynapi.model.SizeChart" relationship="DEPENDENCY">
+      <point x="-1.5" y="-104.5" />
+      <point x="483.0259579728058" y="508.0" />
+      <point x="57.74008693531857" y="508.0" />
+      <point x="47.25" y="82.49999999999994" />
+    </edge>
+    <edge source="com.droppynapi.model.SizeChart" target="com.droppynapi.model.Brand" relationship="DEPENDENCY">
+      <point x="59.340015687258415" y="-7.09691357067652" />
+      <point x="69.83010262257699" y="460.88141391106046" />
+      <point x="113.85974914481187" y="460.88141391106046" />
+      <point x="113.85974914481187" y="480.49600912200685" />
+      <point x="184.5119726339795" y="480.49600912200685" />
+      <point x="-47.99172754347114" y="30.355768837747462" />
+    </edge>
+    <edge source="com.droppynapi.model.Offer" target="com.droppynapi.model.Shoe" relationship="DEPENDENCY">
+      <point x="87.5" y="0.0" />
+      <point x="607.5259579728058" y="705.376390605686" />
+      <point x="607.5259579728058" y="105.0" />
+      <point x="-106.86217552533998" y="105.0" />
+      <point x="0.0" y="-60.5" />
+    </edge>
+    <edge source="com.droppynapi.model.Offer" target="com.droppynapi.model.User" relationship="DEPENDENCY">
+      <point x="30.0" y="104.5" />
+      <point x="514.5259579728058" y="887.9116192830655" />
+      <point x="91.5" y="138.53522867737956" />
+    </edge>
+    <edge source="com.droppynapi.model.User" target="com.droppynapi.model.Offer" relationship="DEPENDENCY">
+      <point x="93.60599364616718" y="87.13330152658318" />
+      <point x="153.58189122373292" y="836.5096921322692" />
+      <point x="153.58189122373292" y="732.3096415327564" />
+      <point x="-87.5" y="26.93325092707039" />
+    </edge>
+    <edge source="com.droppynapi.model.User" target="com.droppynapi.model.Role" relationship="DEPENDENCY">
+      <point x="-17.730312942807984" y="-148.5" />
+      <point x="0.0" y="38.49999999999994" />
+    </edge>
+    <edge source="com.droppynapi.model.Shoe" target="com.droppynapi.model.Media" relationship="TO_ONE">
+      <point x="65.50017552533998" y="0.0" />
+      <point x="348.0" y="189.5" />
+      <point x="348.0" y="313.40160205245155" />
+      <point x="-90.49995797280582" y="-2.0247557057473387E-4" />
+    </edge>
+    <edge source="com.droppynapi.model.Shoe" target="com.droppynapi.model.Media" relationship="DEPENDENCY">
+      <point x="64.05829867243236" y="-39.03363740022803" />
+      <point x="-34.61231470923602" y="150.46636259977197" />
+      <point x="-34.61231470923602" y="149.76738882554167" />
+      <point x="363.0" y="149.76738882554167" />
+      <point x="363.0" y="275.387685290764" />
+      <point x="-49.075558885006444" y="-38.014119237258114" />
+    </edge>
+    <edge source="com.droppynapi.model.Brand" target="com.droppynapi.model.Media" relationship="TO_ONE">
+      <point x="65.50029982254938" y="-1.5932644868144052E-4" />
+      <point x="348.0" y="408.863" />
+      <point x="348.0" y="345.01596351197264" />
+      <point x="-90.03336960336458" y="31.614158983950517" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.9766146993318485" showDependencies="true" x="184.0" y="494.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

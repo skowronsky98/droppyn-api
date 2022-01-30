@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RoleDao extends MongoRepository<Role,String> {
     Role findRoleByName(String name);
+
 }
