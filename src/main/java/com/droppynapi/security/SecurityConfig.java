@@ -36,32 +36,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests()
+//                .authorizeRequests()
 //                .antMatchers(HttpMethod.GET,"/user/token/refresh").permitAll()
-                .antMatchers(HttpMethod.POST,"/user/register").permitAll()
-                .antMatchers(HttpMethod.POST,"/login").permitAll()
-
-                .antMatchers(HttpMethod.GET,"/brand/all").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
-                .antMatchers(HttpMethod.GET,"/sizechart","/sizechart/all").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
-                .antMatchers(HttpMethod.GET,"/shoe","/shoe/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
-                .antMatchers(HttpMethod.GET,"/offer", "/offer/page", "/offer/all", "/offer/shoe","/offer/my/all","/offer/favorite/all").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
-                .antMatchers(HttpMethod.GET,"/user","/user/token/refresh","/user/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
-
-                .antMatchers(HttpMethod.POST,"/offer/my","/offer/favorite").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
-
-                .antMatchers(HttpMethod.PUT,"/offer/my").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
-                .antMatchers(HttpMethod.PUT,"/user").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
-
-                .antMatchers(HttpMethod.DELETE,"/offer/my","/offer/favorite").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
-
-                .antMatchers(HttpMethod.GET,"/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN)
-                .antMatchers(HttpMethod.POST,"/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN)
-                .antMatchers(HttpMethod.DELETE,"/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN)
-                .antMatchers(HttpMethod.PUT,"/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN)
-                .antMatchers(HttpMethod.PATCH,"/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN)
-                .anyRequest().authenticated()
-                .and().addFilter(new CustomAuthenticationFilter(authenticationManagerBean()))
-                .addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+//                .antMatchers(HttpMethod.POST,"/user/register").permitAll()
+//                .antMatchers(HttpMethod.POST,"/login").permitAll()
+//
+//                .antMatchers(HttpMethod.GET,"/brand/all").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
+//                .antMatchers(HttpMethod.GET,"/sizechart","/sizechart/all").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
+//                .antMatchers(HttpMethod.GET,"/shoe","/shoe/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
+//                .antMatchers(HttpMethod.GET,"/offer", "/offer/page", "/offer/all", "/offer/shoe","/offer/my/all","/offer/favorite/all").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
+//                .antMatchers(HttpMethod.GET,"/user","/user/token/refresh","/user/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
+//
+//                .antMatchers(HttpMethod.POST,"/offer/my","/offer/favorite").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
+//
+//                .antMatchers(HttpMethod.PUT,"/offer/my").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
+//                .antMatchers(HttpMethod.PUT,"/user").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
+//
+//                .antMatchers(HttpMethod.DELETE,"/offer/my","/offer/favorite").hasAnyAuthority(Utills.ROLE_SUPERADMIN,Utills.ROLE_USER)
+//
+//                .antMatchers(HttpMethod.GET,"/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN)
+//                .antMatchers(HttpMethod.POST,"/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN)
+//                .antMatchers(HttpMethod.DELETE,"/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN)
+//                .antMatchers(HttpMethod.PUT,"/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN)
+//                .antMatchers(HttpMethod.PATCH,"/**").hasAnyAuthority(Utills.ROLE_SUPERADMIN)
+//                .anyRequest().authenticated()
+//                .and().addFilter(new CustomAuthenticationFilter(authenticationManagerBean()))
+//                .addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable();
     }
 
